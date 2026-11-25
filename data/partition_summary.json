@@ -1,0 +1,426 @@
+{
+  "assumptions": {
+    "A-1": "Every validator uses the published list. Per-validator UNL contents are not observable from the public RPC; the live validation_quorum of 17 in data/close_sample.json is consistent with a 25-UNL under the 67% rule.",
+    "A-2": "Overlap bounds assume equal-size UNLs (ni = nj = n) and an even split of the total difference between the two sides.",
+    "A-3": "Close-time conversions use the fresh 11-header sample mean (3.0000 s, n = 10 diffs, 10 s resolution). The 24 h mean measured 2026-11-24 -> 25 was 3.0243 s, which agrees within 1%."
+  },
+  "crash_loss": {
+    "max_tolerable_loss_67pct": 8,
+    "max_tolerable_loss_80pct": 5,
+    "table": [
+      {
+        "remaining": 25,
+        "validates_at_67pct": true,
+        "validates_at_80pct": true,
+        "validators_lost": 0
+      },
+      {
+        "remaining": 24,
+        "validates_at_67pct": true,
+        "validates_at_80pct": true,
+        "validators_lost": 1
+      },
+      {
+        "remaining": 23,
+        "validates_at_67pct": true,
+        "validates_at_80pct": true,
+        "validators_lost": 2
+      },
+      {
+        "remaining": 22,
+        "validates_at_67pct": true,
+        "validates_at_80pct": true,
+        "validators_lost": 3
+      },
+      {
+        "remaining": 21,
+        "validates_at_67pct": true,
+        "validates_at_80pct": true,
+        "validators_lost": 4
+      },
+      {
+        "remaining": 20,
+        "validates_at_67pct": true,
+        "validates_at_80pct": true,
+        "validators_lost": 5
+      },
+      {
+        "remaining": 19,
+        "validates_at_67pct": true,
+        "validates_at_80pct": false,
+        "validators_lost": 6
+      },
+      {
+        "remaining": 18,
+        "validates_at_67pct": true,
+        "validates_at_80pct": false,
+        "validators_lost": 7
+      },
+      {
+        "remaining": 17,
+        "validates_at_67pct": true,
+        "validates_at_80pct": false,
+        "validators_lost": 8
+      }
+    ]
+  },
+  "live_corroboration": {
+    "build_version": "1.0.9",
+    "close_step_diffs_s": [
+      8,
+      1,
+      1,
+      1,
+      7,
+      1,
+      1,
+      8,
+      1,
+      1
+    ],
+    "close_step_mean_s": 3.0,
+    "network_id": 2025,
+    "peers": 21,
+    "quorum_matches_model_67pct": true,
+    "server_state": "full",
+    "source": "data/close_sample.json (server_info + 11 headers, fetched 2026-11-25 18:24 UTC)",
+    "validated_ledger_seq": 8362579,
+    "validation_quorum": 17
+  },
+  "negative_unl_amendment": {
+    "enabled_on_testnet": true,
+    "name": "NegativeUNL",
+    "source": "data/features_sample.json (feature RPC, fetched 2026-11-25 18:25 UTC)",
+    "supported_on_testnet": true
+  },
+  "negative_unl_recovery": {
+    "disable_threshold_rule": "score < 128 (< 50% of 256 ledgers in a flag period)",
+    "disable_threshold_validations_per_flag_period": 128,
+    "effective_unl_size_after_full_listing": 18,
+    "flag_period_note": "Detection of a missing validator takes at least one flag period (~768 s at the measured close step) before it can even become a disable candidate; voting happens on voting ledgers (seq+1 divisible by 256). A side below quorum cannot close ledgers, so it cannot vote UNLModify transactions to lower its own quorum \u2014 the negative UNL can only help a side that is already validating.",
+    "flag_period_seconds_at_measured_close": 768.0,
+    "max_listed": 7,
+    "max_listed_rule": "ceil(25% of UNL)",
+    "min_local_rule": "local node must have issued MORE than 230 validations (> 90%) to vote; 230 or fewer abstains",
+    "min_local_validations_to_vote": 230,
+    "quorum_after_full_listing_67pct": 15,
+    "reenable_threshold_rule": "score must exceed 204 (> 80% of 256 ledgers); minimum qualifying score 205",
+    "reenable_threshold_validations_per_flag_period": 204,
+    "source": "src/xrpld/app/misc/NegativeUNLVote.h; FLAG_LEDGER_INTERVAL = 256 (src/xrpld/app/ledger/Ledger.h:426)",
+    "survivable_floor_after_listing": 15,
+    "survivable_floor_note": "After full negative-UNL listing the quorum floor is 15, so a validating side can then tolerate 2 further losses (down to 15). A fresh partition still needs 17 to start validating."
+  },
+  "partitions": {
+    "fork_from_partition_alone_67pct": false,
+    "fork_from_partition_alone_80pct": false,
+    "fork_note": "A fork needs both sides >= quorum, i.e. 2*quorum <= n. At 67%: 2*17 = 34 > 25. At 80%: 2*20 = 40 > 25. No partition of a single shared UNL can fork; a fork needs UNL divergence (see overlap tables).",
+    "minimum_survivable_partition_67pct": 17,
+    "minimum_survivable_partition_80pct": 20,
+    "minimum_survivable_partition_share_67pct": 0.68,
+    "table": [
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 25,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": true,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "larger side continues, smaller stalls",
+        "smaller_side": 0,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 24,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": true,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "larger side continues, smaller stalls",
+        "smaller_side": 1,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 23,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": true,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "larger side continues, smaller stalls",
+        "smaller_side": 2,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 22,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": true,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "larger side continues, smaller stalls",
+        "smaller_side": 3,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 21,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": true,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "larger side continues, smaller stalls",
+        "smaller_side": 4,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 20,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": true,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "larger side continues, smaller stalls",
+        "smaller_side": 5,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 19,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": false,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "both sides halt",
+        "smaller_side": 6,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 18,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": false,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "both sides halt",
+        "smaller_side": 7,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 17,
+        "larger_validates_67pct": true,
+        "larger_validates_80pct": false,
+        "outcome_67pct": "larger side continues, smaller stalls",
+        "outcome_80pct": "both sides halt",
+        "smaller_side": 8,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 16,
+        "larger_validates_67pct": false,
+        "larger_validates_80pct": false,
+        "outcome_67pct": "both sides halt",
+        "outcome_80pct": "both sides halt",
+        "smaller_side": 9,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 15,
+        "larger_validates_67pct": false,
+        "larger_validates_80pct": false,
+        "outcome_67pct": "both sides halt",
+        "outcome_80pct": "both sides halt",
+        "smaller_side": 10,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 14,
+        "larger_validates_67pct": false,
+        "larger_validates_80pct": false,
+        "outcome_67pct": "both sides halt",
+        "outcome_80pct": "both sides halt",
+        "smaller_side": 11,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      },
+      {
+        "fork_possible_67pct": false,
+        "fork_possible_80pct": false,
+        "larger_side": 13,
+        "larger_validates_67pct": false,
+        "larger_validates_80pct": false,
+        "outcome_67pct": "both sides halt",
+        "outcome_80pct": "both sides halt",
+        "smaller_side": 12,
+        "smaller_validates_67pct": false,
+        "smaller_validates_80pct": false
+      }
+    ]
+  },
+  "pinned_postfiatd_commit": "0085a1ff885d6a446369cf73a4430f75af22be55",
+  "quorum": {
+    "formula": "max(ceil(effective*0.67), ceil(unl*0.6))",
+    "formula_source": "src/xrpld/app/misc/detail/ValidatorList.cpp:1933-1934 (calculateQuorum at :1845, called at :2109)",
+    "quorum_67pct": 17,
+    "quorum_80pct_upstream": 20,
+    "quorum_delta": 3,
+    "quorum_floor_60pct": 15,
+    "seen_size_note": "calculateQuorum takes a seenSize parameter but does not use it: the quorum does NOT shrink when validators stop being seen. Only the negative UNL lowers the effective size.",
+    "unl_size": 25
+  },
+  "tracking_time_conversions": {
+    "close_step_mean_s": 3.0,
+    "converged_below_ledgers": 24,
+    "converged_below_seconds": 72.0,
+    "diverged_above_ledgers": 128,
+    "diverged_above_seconds": 384.0,
+    "source": "src/xrpld/overlay/detail/Tuning.h:32,36 (limits); PeerImp.cpp:2104,2110 (use)"
+  },
+  "unl_overlap_theorem8": {
+    "derivation": "For equal-size UNLs (ni = nj = n, qi = qj = q, ti = tj = t): pi + pj < 2q - 2t - n, where pi, pj are the per-side counts of validators outside the overlap.",
+    "table_67pct": [
+      {
+        "bound_pi_plus_pj_strictly_below": 9,
+        "byzantine_t": 0,
+        "max_total_unl_difference": 8,
+        "min_pairwise_overlap_fork_safe": 21.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 7,
+        "byzantine_t": 1,
+        "max_total_unl_difference": 6,
+        "min_pairwise_overlap_fork_safe": 22.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 5,
+        "byzantine_t": 2,
+        "max_total_unl_difference": 4,
+        "min_pairwise_overlap_fork_safe": 23.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 3,
+        "byzantine_t": 3,
+        "max_total_unl_difference": 2,
+        "min_pairwise_overlap_fork_safe": 24.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 1,
+        "byzantine_t": 4,
+        "max_total_unl_difference": 0,
+        "min_pairwise_overlap_fork_safe": 25.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": -1,
+        "byzantine_t": 5,
+        "max_total_unl_difference": null,
+        "min_pairwise_overlap_fork_safe": null,
+        "theorem8_certifies": false
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": -3,
+        "byzantine_t": 6,
+        "max_total_unl_difference": null,
+        "min_pairwise_overlap_fork_safe": null,
+        "theorem8_certifies": false
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": -5,
+        "byzantine_t": 7,
+        "max_total_unl_difference": null,
+        "min_pairwise_overlap_fork_safe": null,
+        "theorem8_certifies": false
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": -7,
+        "byzantine_t": 8,
+        "max_total_unl_difference": null,
+        "min_pairwise_overlap_fork_safe": null,
+        "theorem8_certifies": false
+      }
+    ],
+    "table_80pct": [
+      {
+        "bound_pi_plus_pj_strictly_below": 15,
+        "byzantine_t": 0,
+        "max_total_unl_difference": 14,
+        "min_pairwise_overlap_fork_safe": 18.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 13,
+        "byzantine_t": 1,
+        "max_total_unl_difference": 12,
+        "min_pairwise_overlap_fork_safe": 19.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 11,
+        "byzantine_t": 2,
+        "max_total_unl_difference": 10,
+        "min_pairwise_overlap_fork_safe": 20.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 9,
+        "byzantine_t": 3,
+        "max_total_unl_difference": 8,
+        "min_pairwise_overlap_fork_safe": 21.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 7,
+        "byzantine_t": 4,
+        "max_total_unl_difference": 6,
+        "min_pairwise_overlap_fork_safe": 22.0,
+        "theorem8_certifies": true
+      },
+      {
+        "bound_pi_plus_pj_strictly_below": 5,
+        "byzantine_t": 5,
+        "max_total_unl_difference": 4,
+        "min_pairwise_overlap_fork_safe": 23.0,
+        "theorem8_certifies": true
+      }
+    ],
+    "theorem": "XRP LCP guarantees fork safety if Oi,j > nj/2 + ni - qi + ti,j for every pair of nodes (arXiv:1802.07242, Theorem 8; quoted in ValidatorList.cpp:1898-1932). Theorem 8 is sufficient, not necessary.",
+    "vacuity_67pct": "At 67% quorum with worst-case faults (t = n - q = 8): bound = 2*17 - 2*8 - 25 = -7. No overlap satisfies Theorem 8 \u2014 it certifies nothing at 67% under worst-case faults, not even identical UNLs. The in-code comment's 'pi + pj < .33*ni' bound follows only if ti,j = 0 (zero Byzantine faults); the comment states ti <= .33*ni in the same breath, so its derivation is inconsistent. The 21/25 figure from the earlier window is the zero-Byzantine bound.",
+    "worst_case_max_total_difference_80pct": 4,
+    "worst_case_min_overlap_80pct": 23,
+    "zero_byzantine_max_total_difference_67pct": 8,
+    "zero_byzantine_min_overlap_67pct": 21
+  },
+  "validator_list": {
+    "duplicate_keys": 0,
+    "effective_ripple_epoch": 848866298,
+    "expiration_ripple_epoch": 892052157,
+    "manifest_present_for_all": true,
+    "sequence": 31,
+    "source_url": "https://postfiat.org/testnet_vl.json",
+    "unique_validation_public_keys": 25,
+    "validator_count": 25
+  }
+}

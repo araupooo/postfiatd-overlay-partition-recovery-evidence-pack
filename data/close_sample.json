@@ -1,0 +1,91 @@
+{
+  "fetched_utc": "2026-11-25T18:24:00Z",
+  "server_info": {
+    "validated_ledger_seq": 8362579,
+    "validation_quorum": 17,
+    "server_state": "full",
+    "build_version": "1.0.9",
+    "network_id": 2025,
+    "peers": 21
+  },
+  "headers": [
+    {
+      "seq": 8362569,
+      "close_time": 848946182,
+      "close_time_human": "2026-Nov-25 18:23:02.000000000 UTC",
+      "total_coins": "99999999966254182"
+    },
+    {
+      "seq": 8362570,
+      "close_time": 848946190,
+      "close_time_human": "2026-Nov-25 18:23:10.000000000 UTC",
+      "total_coins": "99999999966254182"
+    },
+    {
+      "seq": 8362571,
+      "close_time": 848946191,
+      "close_time_human": "2026-Nov-25 18:23:11.000000000 UTC",
+      "total_coins": "99999999966254182"
+    },
+    {
+      "seq": 8362572,
+      "close_time": 848946192,
+      "close_time_human": "2026-Nov-25 18:23:12.000000000 UTC",
+      "total_coins": "99999999966254182"
+    },
+    {
+      "seq": 8362573,
+      "close_time": 848946193,
+      "close_time_human": "2026-Nov-25 18:23:13.000000000 UTC",
+      "total_coins": "99999999966254182"
+    },
+    {
+      "seq": 8362574,
+      "close_time": 848946200,
+      "close_time_human": "2026-Nov-25 18:23:20.000000000 UTC",
+      "total_coins": "99999999966254182"
+    },
+    {
+      "seq": 8362575,
+      "close_time": 848946201,
+      "close_time_human": "2026-Nov-25 18:23:21.000000000 UTC",
+      "total_coins": "99999999966254182"
+    },
+    {
+      "seq": 8362576,
+      "close_time": 848946202,
+      "close_time_human": "2026-Nov-25 18:23:22.000000000 UTC",
+      "total_coins": "99999999966254182"
+    },
+    {
+      "seq": 8362577,
+      "close_time": 848946210,
+      "close_time_human": "2026-Nov-25 18:23:30.000000000 UTC",
+      "total_coins": "99999999966254162"
+    },
+    {
+      "seq": 8362578,
+      "close_time": 848946211,
+      "close_time_human": "2026-Nov-25 18:23:31.000000000 UTC",
+      "total_coins": "99999999966254162"
+    },
+    {
+      "seq": 8362579,
+      "close_time": 848946212,
+      "close_time_human": "2026-Nov-25 18:23:32.000000000 UTC",
+      "total_coins": "99999999966254162"
+    }
+  ],
+  "close_diffs_s": [
+    8,
+    1,
+    1,
+    1,
+    7,
+    1,
+    1,
+    8,
+    1,
+    1
+  ]
+}
