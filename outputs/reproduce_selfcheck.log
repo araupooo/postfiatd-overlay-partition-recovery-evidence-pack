@@ -1,0 +1,59 @@
+== partition_model ==
+M-01 validators: 25 (unique keys 25, duplicates 0)
+M-01 quorum: 67% rule -> 17, 80% rule -> 20 (delta 3), floor 15
+M-01 live quorum: 17 (matches model: True)
+M-01 max crash loss: 8 @67%, 5 @80%
+M-01 min survivable partition: 17 @67%, 20 @80%
+M-01 overlap 67%%: t=0 -> min overlap 21 (diff <= 8); t=8 -> Theorem 8 vacuous (bound -7)
+M-01 overlap 80%%: t=5 -> min overlap 23 (diff <= 4)
+M-01 negative UNL: max listed 7, quorum after full listing 15, flag period ~768 s
+M-01 negative UNL amendment enabled on testnet: True
+M-01 PASS
+== overlay_audit ==
+M-02 overlay constants: 9 rows
+M-02 peerfinder constants: 12 rows
+M-02 manifest bounds: 2 rows
+M-02 converged below 72.0 s, diverged above 384.0 s (close step 3.0000 s)
+M-02 idle sweep every 4 s; negative-UNL flag period ~768 s
+M-02 PASS
+== recovery_drills ==
+M-04 D-01 retry-after-failure: PASS -- succeeded on attempt 3 of 4 (503, timeout, success)
+M-04 D-02 resume-after-interruption: PASS -- gap seqs [106, 107, 108, 109, 110, 111] filled from scripted source; 18 headers contiguous
+M-04 D-03 digest-mismatch-detection: PASS -- tampered copy sha256 574db126f8cfbf6f098cadedbfdc9524d674ede69d26dfe5479cd6684a4a1331 != original 2305727b16ddc8f6cf807ac6767b430dac8eee0a5b1d437631377440b9d508df; sha256sum on original exits 0
+M-04 D-04a quorum-unchanged-by-partition: PASS -- quorum stays 17 with 17 of 25 validators reachable (seenSize is unused in calculateQuorum)
+M-04 D-04b negative-unl-lowers-quorum: PASS -- listed 7 of 8 missing (25% cap), effective 18, quorum 17 -> 15; 17 survivors >= quorum
+M-04 D-04c sub-quorum-side-cannot-self-rescue: PASS -- 16 validators < quorum 17: side cannot close ledgers, so it cannot vote UNLModify transactions to lower its own quorum
+M-04 D-04d heal-resync-matches-published-list: PASS -- healed list digest 06fd4506d7372be88f88644de6b6c6b01bdca4f30c433c3f6995c83c6cc00e54 == published 06fd4506d7372be88f88644de6b6c6b01bdca4f30c433c3f6995c83c6cc00e54; 25 keys, manifests present for all, seq 31
+M-04 D-04e tampered-healed-list-rejected: PASS -- tampered digest a22a54e02fdf723c8e453980a000d685882203077b25ecbf43faf77077277b29 != published 06fd4506d7372be88f88644de6b6c6b01bdca4f30c433c3f6995c83c6cc00e54; one swapped key detected
+M-04 drills: 0 failed
+M-04 PASS
+ALL CHECKS PASSED
+./.github/workflows/ci.yml: OK
+./.gitignore: OK
+./README.md: OK
+./data/close_sample.json: OK
+./data/features_sample.json: OK
+./data/overlay_audit.json: OK
+./data/partition_summary.json: OK
+./data/postfiatd_pin.json: OK
+./data/testnet_vl.json: OK
+./docs/CLAIMS.md: OK
+./docs/DECISION_MEMO.md: OK
+./docs/FAILURE_MODES.md: OK
+./docs/OVERLAY_AUDIT.md: OK
+./docs/PARTITION_MODEL.md: OK
+./docs/REMEDIATION.md: OK
+./docs/REPRODUCTION.md: OK
+./docs/SOURCES.md: OK
+./outputs/overlay_audit.log: OK
+./outputs/partition_model.log: OK
+./outputs/recovery_drills.log: OK
+./outputs/reproduce_selfcheck.log: OK
+./reproduce.sh: OK
+./scripts/overlay_audit.py: OK
+./scripts/partition_model.py: OK
+./scripts/recovery_drills.py: OK
+./scripts/rpc_client.py: OK
+./scripts/run_all.sh: OK
+./verify_digests.sh: OK
+REPRODUCE OK

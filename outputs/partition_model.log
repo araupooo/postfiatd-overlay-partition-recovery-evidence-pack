@@ -1,0 +1,10 @@
+M-01 validators: 25 (unique keys 25, duplicates 0)
+M-01 quorum: 67% rule -> 17, 80% rule -> 20 (delta 3), floor 15
+M-01 live quorum: 17 (matches model: True)
+M-01 max crash loss: 8 @67%, 5 @80%
+M-01 min survivable partition: 17 @67%, 20 @80%
+M-01 overlap 67%%: t=0 -> min overlap 21 (diff <= 8); t=8 -> Theorem 8 vacuous (bound -7)
+M-01 overlap 80%%: t=5 -> min overlap 23 (diff <= 4)
+M-01 negative UNL: max listed 7, quorum after full listing 15, flag period ~768 s
+M-01 negative UNL amendment enabled on testnet: True
+M-01 PASS
